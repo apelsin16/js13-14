@@ -1,3 +1,17 @@
 li {
   list-style: none;
 }
+
+#box {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      text-align: center;
+      background: #aef;
+      opacity: 0.7;
+      font-size: 5rem;
+    }

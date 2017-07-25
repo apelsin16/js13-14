@@ -21,7 +21,19 @@ var data = {
     ]
   };
 
-var correctAnswers = [true, false, true, true, false, true, true, false, true];
+function getBoolArray(answersArr, correctAnswerArr) {
+       return _.map(answersArr, function (n,i) {
+           return _.includes(correctAnswerArr, i+1);
+       });
+   }
+
+function getCorrectAnswers(quetionsArray) {
+        return _.flatMap(quetionsArray, function(item) {
+            return getBoolArray(item.answers, item.correctAnswers);
+        });
+    }
+
+var correctAnswers = getCorrectAnswers(data.questions);
 
 localStorage.setItem('dataArray', JSON.stringify(data));
 var test = localStorage.getItem('dataArray');
@@ -37,7 +49,7 @@ container.append(html);
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]'),
 
-    //document.getElementById("result"),
+
     button = document.getElementById("button");
 
 
@@ -49,9 +61,20 @@ var checkboxes = document.querySelectorAll('input[type="checkbox"]'),
       console.log(output);
 
     if (_.isEqual(correctAnswers, output) === true){
-      alert('Вы успешно прошли тест');
+      $('#box').show().prepend('<p>Вы успешно прошли тест</p>');
+       $('.button').click(function(){
+          location.reload();
+      //   $('#box').hide();
+      //   document.getElementById("myForm").reset();
+
+      });
     } else {
-      alert('Вы ошиблись. Попробуйте снова');
+      $('#box').show().prepend('<p>Вы ошиблись. Попробуйте снова</p>');
+      $('.button').click(function(){
+         location.reload();
+        //  $('#box').hide();
+        //  document.getElementById("myForm").reset();
+      });
     }
 	});
 
